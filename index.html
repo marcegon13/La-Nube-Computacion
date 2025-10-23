@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Nube Computación - Soluciones Tecnológicas Corporativas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Efecto Matrix de fondo -->
+    <canvas id="matrixRain"></canvas>
+
+    <!-- Navbar SIEMPRE transparente -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Menú de navegación -->
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#personalizado">Enfoque</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#proceso">Proceso</a></li>
+                <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+            </ul>
+
+            <!-- Menú hamburguesa -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION CORPORATIVO -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <!-- LOGO EN EL HERO -->
+            <div class="hero-logo">
+                <img src="img/la_nube3.png" alt="La Nube Computación" class="main-logo">
+            </div>
+            
+            <h1 class="hero-title">Soluciones Tecnológicas Integrales para Empresas</h1>
+            <p class="hero-subtitle">En <strong>La Nube Computación</strong> combinamos desarrollo de software personalizado con soporte técnico especializado para optimizar la operación completa de su empresa</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="btn btn-primary">Solicitar Consultoría</a>
+                <a href="#servicios" class="btn btn-secondary">Conocer Servicios</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Servicios Section CORPORATIVO -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <h2 class="section-title">Servicios Corporativos</h2>
+            <p class="section-subtitle">Soluciones tecnológicas 360° para optimizar todos los aspectos de su operación empresarial</p>
+            <div class="services-grid">
+                <!-- SERVICIO 1: SOPORTE TÉCNICO -->
+                <div class="service-card">
+                    <div class="service-icon"><img src="img/soporte_tecnico.jpg" alt="Soporte Técnico Corporativo"></div>
+                    <h3>🔧 Soporte Técnico Integral</h3>
+                    <p>Gestión completa de infraestructura IT con +20 años de experiencia en resolución técnica.</p>
+                    <ul class="service-features">
+                        <li>Armado y reparación de PC/Notebooks</li>
+                        <li>Instalación SO y formateo profesional</li>
+                        <li>Mantenimiento preventivo y correctivo</li>
+                        <li>Recuperación de datos y backup</li>
+                        <li><strong>+20 años de experiencia</strong></li>
+                    </ul>
+                </div>
+
+                <!-- SERVICIO 2: DESARROLLO SOFTWARE -->
+                <div class="service-card">
+                    <div class="service-icon"><img src="img/desarrollo_equipo.jpg" alt="Desarrollo Software Corporativo"></div>
+                    <h3>💻 Desarrollo Software Personalizado</h3>
+                    <p>Soluciones tecnológicas a medida que automatizan procesos y aumentan productividad.</p>
+                    <ul class="service-features">
+                        <li>Aplicaciones desktop y web</li>
+                        <li>Sistemas de gestión empresarial</li>
+                        <li>Integración de inteligencia artificial</li>
+                        <li>Desarrollo ágil y escalable</li>
+                        <li><strong>Tecnologías modernas</strong></li>
+                    </ul>
+                </div>
+
+                <!-- SERVICIO 3: CONSULTORÍA -->
+                <div class="service-card">
+                    <div class="service-icon"><img src="img/consultoria_empresarial.jpg" alt="Consultoría Empresarial"></div>
+                    <h3>🚀 Consultoría Tecnológica</h3>
+                    <p>Optimización de procesos empresariales mediante estrategias de digitalización y automatización.</p>
+                    <ul class="service-features">
+                        <li>Análisis de procesos operativos</li>
+                        <li>Estrategias de transformación digital</li>
+                        <li>Migración tecnológica guiada</li>
+                        <li>Gestión del cambio organizacional</li>
+                        <li><strong>Expertise empresarial + tecnología</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Enfoque Personalizado (Mantenemos pero con lenguaje corporativo) -->
+    <section id="personalizado" class="personalized">
+        <div class="container">
+            <h2 class="section-title">Metodología de Trabajo</h2>
+            <p class="section-subtitle">En La Nube Computación desarrollamos soluciones técnicamente robustas adaptadas exactamente a los procesos de cada cliente</p>
+            
+            <div class="personalized-showcase">
+                <!-- PROYECTO 1: SISTEMA DE TURNOS -->
+                <div class="project-showcase">
+                    <div class="project-content">
+                        <div class="project-info">
+                            <h3>🏪 Sistema de Turnos Inteligente</h3>
+                            <p class="project-subtitle">Desarrollado para optimización de agenda y atención al cliente</p>
+                            <div class="tech-commercial-grid">
+                                <div class="tech-side">
+                                    <h4>🛠 Stack Tecnológico:</h4>
+                                    <ul>
+                                        <li>Python + Tkinter (UI nativa)</li>
+                                        <li>SQLite optimizada</li>
+                                        <li>Integración WhatsApp API</li>
+                                        <li>Algoritmos de optimización</li>
+                                    </ul>
+                                </div>
+                                <div class="commercial-side">
+                                    <h4>📈 Impacto Empresarial:</h4>
+                                    <ul>
+                                        <li><strong>+60%</strong> reducción en inasistencias</li>
+                                        <li><strong>-3h diarias</strong> en gestión manual</li>
+                                        <li><strong>+25%</strong> capacidad de atención</li>
+                                        <li>Automatización completa</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-visual">
+                            <div class="visual-card">
+                                <img src="img/turnos.png" alt="Sistema de Turnos Corporativo">
+                                <div class="visual-overlay">
+                                    <span>Solución personalizada para gestión de citas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROYECTO 2: WEB DE TURISMO -->
+                <div class="project-showcase">
+                    <div class="project-content reverse">
+                        <div class="project-info">
+                            <h3>🌍 Plataforma de Turismo Corporativa</h3>
+                            <p class="project-subtitle">Desarrollo web responsive con enfoque en experiencia de usuario</p>
+                            <div class="tech-commercial-grid">
+                                <div class="tech-side">
+                                    <h4>🛠 Stack Tecnológico:</h4>
+                                    <ul>
+                                        <li>HTML5 + CSS3 + JavaScript ES6+</li>
+                                        <li>Diseño 100% responsive</li>
+                                        <li>Optimización SEO avanzada</li>
+                                        <li>Integración APIs externas</li>
+                                    </ul>
+                                </div>
+                                <div class="commercial-side">
+                                    <h4>📈 Impacto Empresarial:</h4>
+                                    <ul>
+                                        <li><strong>+45%</strong> tiempo en sitio</li>
+                                        <li><strong>+30%</strong> conversión de leads</li>
+                                        <li>Experiencia usuario premium</li>
+                                        <li>Posicionamiento SEO orgánico</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-visual">
+                            <div class="visual-card">
+                                <img src="img/turismo.jpg" alt="Plataforma de Turismo">
+                                <div class="visual-overlay">
+                                    <span>Desarrollo web corporativo responsive</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="personalized-cta">
+                <h3>¿Su empresa necesita una solución tecnológica integral?</h3>
+                <p>Nuestro equipo analiza sus procesos específicos y desarrolla el sistema exacto que necesita</p>
+                <a href="#contacto" class="btn btn-primary">Solicitar Auditoría Tecnológica</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section (Mantenemos con ajustes corporativos) -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Casos de Éxito Corporativos</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="img/turnos.png" alt="Sistema de Turnos">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Sistema de Gestión de Turnos</h3>
+                        <p>Solución completa para optimización de agenda y automatización de recordatorios.</p>
+                        <div class="portfolio-tech">
+                            <span>Python</span>
+                            <span>SQLite</span>
+                            <span>Tkinter</span>
+                            <span>WhatsApp API</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="img/turismo.jpg" alt="Web Turismo">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Plataforma de Turismo</h3>
+                        <p>Desarrollo web corporativo con enfoque en experiencia de usuario y SEO.</p>
+                        <div class="portfolio-tech">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>SEO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="img/e-commerce.jpg" alt="E-commerce">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>E-commerce Corporativo</h3>
+                        <p>Tienda online con recomendaciones IA y analytics integrado.</p>
+                        <div class="portfolio-tech">
+                            <span>JavaScript</span>
+                            <span>Firebase</span>
+                            <span>Machine Learning</span>
+                            <span>Stripe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso Section (Ajustes corporativos) -->
+    <section id="proceso" class="process">
+        <div class="container">
+            <h2 class="section-title">Metodología de Implementación</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Diagnóstico Corporativo</h3>
+                    <img src="img/consulta.jpg" alt="Diagnóstico">
+                    <p>Análisis exhaustivo de procesos y necesidades empresariales</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Diseño de Solución</h3>
+                    <img src="img/diseño.jpg" alt="Diseño">
+                    <p>Arquitectura técnica y planificación estratégica</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Desarrollo Ágil</h3>
+                    <img src="img/desarrollo.jpg" alt="Desarrollo">
+                    <p>Implementación con metodologías ágiles y feedback continuo</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Soporte Continuo</h3>
+                    <img src="img/entrega.jpg" alt="Soporte">
+                    <p>Implementación y soporte técnico post-despliegue</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section (Totalmente corporativo) -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <h2 class="section-title">Hablemos de su Proyecto Empresarial</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Consúltenos sin compromiso</h3>
+                    <p>Nuestro equipo analizará su caso y desarrollará una propuesta técnica-comercial personalizada</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <span>hola@lanubecomputacion.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>📱</span>
+                            <span>+34 123 456 789</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FORMULARIO MODIFICADO PARA PHP -->
+                <form class="contact-form" action="contact.php" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="nombre_empresa" placeholder="Nombre de la empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email corporativo" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="mensaje" placeholder="Describa su proyecto y objetivos empresariales..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Solicitar Propuesta Corporativa</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER CORPORATIVO -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="img/la_nube3.png" alt="La Nube Computación" class="footer-logo-img">
+                    </div>
+                    <p>En <strong>La Nube Computación</strong> desarrollamos soluciones tecnológicas integrales que combinan expertise técnico con visión empresarial.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Áreas de Servicio</h4>
+                    <ul>
+                        <li><a href="#servicios">Soporte Técnico</a></li>
+                        <li><a href="#servicios">Desarrollo Software</a></li>
+                        <li><a href="#servicios">Consultoría Tecnológica</a></li>
+                        <li><a href="#portfolio">Casos de Éxito</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contacto Corporativo</h4>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <span>hola@lanubecomputacion.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>📱</span>
+                            <span>+34 123 456 789</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 La Nube Computación. Todos los derechos reservados. | Soluciones Tecnológicas Corporativas</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
