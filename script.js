@@ -1,364 +1,273 @@
-// ===== EFECTO MATRIX RAIN CON CANVAS =====
-function initMatrixRain() {
-    const canvas = document.getElementById('matrixRain');
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-
-    // Configurar canvas para cubrir toda la pantalla
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Caracteres binarios
-    const chars = '01';
-    const charSize = 14;
-    const columns = canvas.width / charSize;
-    const drops = [];
-
-    // Inicializar gotas
-    for (let i = 0; i < columns; i++) {
-        drops[i] = Math.random() * canvas.height;
-    }
-
-    function draw() {
-        // Fondo semitransparente para efecto de rastro
-        ctx.fillStyle = 'rgba(26, 26, 26, 0.04)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Color y fuente para los caracteres
-        ctx.fillStyle = '#00ff00';
-        ctx.font = charSize + 'px monospace';
-
-        // Dibujar caracteres
-        for (let i = 0; i < drops.length; i++) {
-            const char = chars.charAt(Math.floor(Math.random() * chars.length));
-            const x = i * charSize;
-            const y = drops[i] * charSize;
-
-            // Dibujar caracter
-            ctx.fillText(char, x, y);
-
-            // Reiniciar gota cuando llega al fondo
-            if (y > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-
-            // Mover gota
-            drops[i]++;
-        }
-    }
-
-    // Animar
-    setInterval(draw, 33);
-
-    // Redimensionar canvas cuando cambia el tamaño de la ventana
-    window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-}
-
-// ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// ===== MOBILE MENU TOGGLE MEJORADO =====
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const body = document.body;
-
-function closeMobileMenu() {
-    if (hamburger) hamburger.classList.remove('active');
-    if (navMenu) navMenu.classList.remove('active');
-    body.style.overflow = '';
-}
-
-function toggleMobileMenu() {
-    if (!hamburger || !navMenu) return;
-    
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    
-    // Prevenir scroll cuando el menú está abierto
-    if (navMenu.classList.contains('active')) {
-        body.style.overflow = 'hidden';
-    } else {
-        body.style.overflow = '';
-    }
-}
-
-if (hamburger) {
-    hamburger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        toggleMobileMenu();
-    });
-}
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        closeMobileMenu();
-    });
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (navMenu && navMenu.classList.contains('active') && 
-        !navMenu.contains(e.target) && 
-        !hamburger.contains(e.target)) {
-        closeMobileMenu();
-    }
-});
-
-// Close mobile menu on escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
-        closeMobileMenu();
-    }
-});
-
-// Close mobile menu on window resize (para evitar problemas visuales)
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        closeMobileMenu();
-    }
-});
-
-// ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// ===== INICIALIZAR TODO AL CARGAR =====
+// ===== SCROLL SUAVE Y NAVEGACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Iniciar efecto Matrix
-    initMatrixRain();
-    
-    // Animate service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach((card, index) => {
+    // Scroll suave para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // ===== ANIMACIÓN DE TARJETAS AL SCROLL =====
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observar todas las tarjetas de servicios y portfolio
+    document.querySelectorAll('.service-card, .portfolio-card').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(card);
     });
 
-    // Animate portfolio cards
-    const portfolioCards = document.querySelectorAll('.portfolio-card');
-    portfolioCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
-        observer.observe(card);
-    });
+    // ===== FORM SUBMISSION MEJORADO - 100% SIMULADO =====
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            // Validación básica
+            const nombreEmpresa = this.querySelector('input[name="nombre_empresa"]')?.value;
+            const email = this.querySelector('input[name="email"]')?.value;
+            const telefono = this.querySelector('input[name="telefono"]')?.value;
+            const servicio = this.querySelector('select[name="servicio"]')?.value;
+            const mensaje = this.querySelector('textarea[name="mensaje"]')?.value;
 
-    // Animate process steps
-    const processSteps = document.querySelectorAll('.process-step');
-    processSteps.forEach((step, index) => {
-        step.style.opacity = '0';
-        step.style.transform = 'translateY(30px)';
-        step.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
-        observer.observe(step);
-    });
+            // Validar campos obligatorios
+            if (!nombreEmpresa || !email || !telefono || !servicio || !mensaje) {
+                alert('Por favor, complete todos los campos obligatorios.');
+                return;
+            }
 
-    // ===== NUEVAS ANIMACIONES PARA SECCIÓN PERSONALIZADA =====
-    
-    // Animate project showcases
-    const projectShowcases = document.querySelectorAll('.project-showcase');
-    projectShowcases.forEach((showcase, index) => {
-        showcase.style.opacity = '0';
-        showcase.style.transform = 'translateY(30px)';
-        showcase.style.transition = `opacity 0.6s ease ${index * 0.3}s, transform 0.6s ease ${index * 0.3}s`;
-        observer.observe(showcase);
-    });
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor, ingrese un email válido.');
+                return;
+            }
 
-    // Animate personalized CTA
-    const personalizedCta = document.querySelector('.personalized-cta');
-    if (personalizedCta) {
-        personalizedCta.style.opacity = '0';
-        personalizedCta.style.transform = 'translateY(30px)';
-        personalizedCta.style.transition = 'opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s';
-        observer.observe(personalizedCta);
+            // Mostrar estado de envío
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+
+            // SIMULAR ENVÍO EXITOSO (para GitHub Pages)
+            setTimeout(() => {
+                alert('✅ Mensaje enviado correctamente. Nos pondremos en contacto a la brevedad.');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
     }
 
-    // Animate tech-commercial grids
-    const techCommercialGrids = document.querySelectorAll('.tech-commercial-grid');
-    techCommercialGrids.forEach((grid, index) => {
-        grid.style.opacity = '0';
-        grid.style.transform = 'translateX(-20px)';
-        grid.style.transition = `opacity 0.6s ease ${index * 0.4}s, transform 0.6s ease ${index * 0.4}s`;
-        observer.observe(grid);
+    // ===== CONTADOR ESTADÍSTICAS ANIMADO =====
+    function animateCounter(element, target, duration = 2000) {
+        let start = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+                element.textContent = target + '+';
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(start) + '+';
+            }
+        }, 16);
+    }
+
+    // Animar contadores cuando son visibles
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                animateCounter(entry.target, target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(counter => {
+        counterObserver.observe(counter);
     });
 
-    // Animate visual cards
-    const visualCards = document.querySelectorAll('.visual-card');
-    visualCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateX(20px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.4}s, transform 0.6s ease ${index * 0.4}s`;
-        observer.observe(card);
+    // ===== BOTÓN "VOLVER ARRIBA" =====
+    const scrollToTopBtn = document.createElement('button');
+    scrollToTopBtn.innerHTML = '↑';
+    scrollToTopBtn.className = 'scroll-to-top';
+    scrollToTopBtn.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 1000;
+    `;
+    document.body.appendChild(scrollToTopBtn);
+
+    // Mostrar/ocultar botón
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.style.opacity = '1';
+        } else {
+            scrollToTopBtn.style.opacity = '0';
+        }
     });
+
+    // Funcionalidad del botón
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // ===== MENÚ MÓVIL RESPONSIVE =====
+    const mobileMenuBtn = document.createElement('button');
+    mobileMenuBtn.innerHTML = '☰';
+    mobileMenuBtn.className = 'mobile-menu-btn';
+    mobileMenuBtn.style.cssText = `
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        z-index: 1001;
+        font-size: 18px;
+    `;
+    document.body.appendChild(mobileMenuBtn);
+
+    // Toggle menu móvil
+    mobileMenuBtn.addEventListener('click', () => {
+        const nav = document.querySelector('nav');
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Responsive - mostrar botón menú en móviles
+    function checkScreenSize() {
+        if (window.innerWidth <= 768) {
+            mobileMenuBtn.style.display = 'block';
+            document.querySelector('nav').style.display = 'none';
+        } else {
+            mobileMenuBtn.style.display = 'none';
+            document.querySelector('nav').style.display = 'flex';
+        }
+    }
+
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize();
+
+    // ===== ANIMACIÓN TYPING HERO =====
+    const heroTitle = document.querySelector('.hero h1');
+    if (heroTitle) {
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < originalText.length) {
+                heroTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+    // Esperar a que cargue la página para empezar la animación
+        setTimeout(typeWriter, 1000);
+    }
+
+    // ===== EFECTO PARALLAX SUAVE =====
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.parallax');
+        
+        parallaxElements.forEach(element => {
+            const speed = element.dataset.speed || 0.5;
+            element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+
+    // ===== PRELOADER =====
+    window.addEventListener('load', () => {
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1000);
+        }
+    });
+
+    console.log('✅ La Nube Computación - Script cargado correctamente');
 });
 
-// ===== FORM SUBMISSION MEJORADO =====
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        
-        // Validación básica
-        const nombreEmpresa = this.querySelector('input[name="nombre_empresa"]').value;
-        const email = this.querySelector('input[name="email"]').value;
-        const mensaje = this.querySelector('textarea[name="mensaje"]').value;
-        
-        if (!nombreEmpresa || !email || !mensaje) {
-            alert('Por favor, complete todos los campos obligatorios.');
-            return;
-        }
-        
-        // Cambiar estado del botón
-        submitBtn.textContent = 'Enviando...';
-        submitBtn.disabled = true;
-        
-        try {
-            const formData = new FormData(this);
-            
-            const response = await fetch(this.action, {
-                method: 'POST',
-                body: formData
-            });
-            
-            if (response.ok) {
-                const result = await response.text();
-                if (result === 'success') {
-                    alert('✅ ¡Gracias por su consulta! Hemos recibido su mensaje y le contactaremos pronto.');
-                    this.reset();
-                } else {
-                    alert('❌ Error al enviar el mensaje. Por favor, intente nuevamente.');
-                }
-            } else {
-                alert('❌ Error de conexión. Por favor, intente nuevamente.');
-            }
-        } catch (error) {
-            alert('❌ Error de red. Por favor, verifique su conexión e intente nuevamente.');
-        } finally {
-            // Restaurar botón
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
-    });
+// ===== FUNCIONES GLOBALES =====
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
 }
 
-// ===== HOVER EFFECTS =====
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
+function toggleMenu() {
+    const nav = document.querySelector('nav');
+    nav.classList.toggle('active');
+}
 
-document.querySelectorAll('.portfolio-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-document.querySelectorAll('.process-step').forEach(step => {
-    step.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-    });
-    
-    step.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-// ===== NUEVOS HOVER EFFECTS PARA SECCIÓN PERSONALIZADA =====
-document.querySelectorAll('.project-showcase').forEach(showcase => {
-    showcase.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-    });
-    
-    showcase.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-document.querySelectorAll('.tech-side, .commercial-side').forEach(side => {
-    side.addEventListener('mouseenter', function() {
-        this.style.background = 'rgba(255, 255, 255, 0.08)';
-        this.style.transform = 'translateX(5px)';
-    });
-    
-    side.addEventListener('mouseleave', function() {
-        this.style.background = 'rgba(255, 255, 255, 0.03)';
-        this.style.transform = 'translateX(0)';
-    });
-});
-
-document.querySelectorAll('.visual-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// ===== SCROLL PROGRESS INDICATOR =====
-window.addEventListener('scroll', function() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollProgress = (scrollTop / scrollHeight) * 100;
-    
-    // Puedes usar este progreso para efectos futuros
-    console.log('Scroll progress:', scrollProgress + '%');
-});
-
-// ===== LAZY LOADING PARA IMÁGENES =====
-const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.classList.remove('lazy');
-            imageObserver.unobserve(img);
+// ===== VALIDACIÓN DE FORMULARIO EN TIEMPO REAL =====
+document.addEventListener('input', function(e) {
+    if (e.target.type === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (e.target.value && !emailRegex.test(e.target.value)) {
+            e.target.style.borderColor = 'red';
+        } else {
+            e.target.style.borderColor = '';
         }
-    });
+    }
 });
 
-// Observar imágenes lazy (si las agregas en el futuro)
-document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
+// ===== ANIMACIÓN DE PROGRESO DE SCROLL (OPCIONAL) =====
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    
+    // Opcional: Mostrar progreso en consola (puedes comentar esta línea)
+    // console.log('Scroll progress:', scrolled + '%');
 });
